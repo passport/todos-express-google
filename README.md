@@ -1,4 +1,4 @@
-# todos-express-google-oauth2
+# todos-express-google
 
 This app illustrates how to use [Passport](https://www.passportjs.org/) with
 [Express](https://expressjs.com/) to sign users in with [Google](https://www.google.com/).
@@ -9,8 +9,8 @@ Use this example as a starting point for your own web applications.
 To run this app, clone the repository and install dependencies:
 
 ```bash
-$ git clone https://github.com/passport/todos-express-google-oauth2.git
-$ cd todos-express-google-oauth2
+$ git clone https://github.com/passport/todos-express-google.git
+$ cd todos-express-google
 $ npm install
 ```
 
@@ -37,7 +37,7 @@ Navigate to [`http://localhost:3000`](http://localhost:3000).
 
 ## Overview
 
-This example illustrates how to use Passport and the [`passport-google-oauth20`](https://www.passportjs.org/packages/passport-google-oauth20/)
+This example illustrates how to use Passport and the [`passport-google-oidc`](https://www.passportjs.org/packages/passport-google-oidc/)
 strategy within an Express application to sign users in with [Google](https://www.google.com)
 via OAuth 2.0.
 
