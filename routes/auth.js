@@ -12,54 +12,46 @@ var db = require('../db');
 // with a user object, which will be set at `req.user` in route handlers after
 // authentication.
 passport.use(new GoogleStrategy({
-    clientID: process.env['GOOGLE_CLIENT_ID'],
-    clientSecret: process.env['GOOGLE_CLIENT_SECRET'],
-    callbackURL: '/oauth2/redirect/accounts.google.com',
-    scope: [ 'profile' ],
-    state: true
-  },
-  function(issuer, profile, cb) {
-    // In this example, the user's Facebook profile is supplied as the user
-    // record.  In a production-quality application, the Facebook profile should
-    // be associated with a user record in the application's database, which
-    // allows for account linking and authentication with other identity
-    // providers.
-    //return cb(null, profile);
-    
-    db.get('SELECT * FROM federated_credentials WHERE provider = ? AND subject = ?', [
-      issuer,
-      profile.id
-    ], function(err, row) {
-      if (err) { return cb(err); }
-      if (!row) {
-        db.run('INSERT INTO users (name) VALUES (?)', [
-          profile.displayName
+  clientID: process.env['GOOGLE_CLIENT_ID'],
+  clientSecret: process.env['GOOGLE_CLIENT_SECRET'],
+  callbackURL: '/oauth2/redirect/accounts.google.com',
+  scope: [ 'profile' ],
+  state: true
+},
+function(issuer, profile, cb) {
+  db.get('SELECT * FROM federated_credentials WHERE provider = ? AND subject = ?', [
+    issuer,
+    profile.id
+  ], function(err, row) {
+    if (err) { return cb(err); }
+    if (!row) {
+      db.run('INSERT INTO users (name) VALUES (?)', [
+        profile.displayName
+      ], function(err) {
+        if (err) { return cb(err); }
+        var id = this.lastID;
+        db.run('INSERT INTO federated_credentials (user_id, provider, subject) VALUES (?, ?, ?)', [
+          id,
+          issuer,
+          profile.id
         ], function(err) {
           if (err) { return cb(err); }
-          
-          var id = this.lastID;
-          db.run('INSERT INTO federated_credentials (user_id, provider, subject) VALUES (?, ?, ?)', [
-            id,
-            'https://accounts.google.com',
-            profile.id
-          ], function(err) {
-            if (err) { return cb(err); }
-            var user = {
-              id: id,
-              name: profile.displayName
-            };
-            return cb(null, user);
-          });
+          var user = {
+            id: id,
+            name: profile.displayName
+          };
+          return cb(null, user);
         });
-      } else {
-        db.get('SELECT rowid AS id, * FROM users WHERE rowid = ?', [ row.user_id ], function(err, row) {
-          if (err) { return cb(err); }
-          if (!row) { return cb(null, false); }
-          return cb(null, row);
-        });
-      }
-    });
-  }));
+      });
+    } else {
+      db.get('SELECT rowid AS id, * FROM users WHERE rowid = ?', [ row.user_id ], function(err, row) {
+        if (err) { return cb(err); }
+        if (!row) { return cb(null, false); }
+        return cb(null, row);
+      });
+    }
+  });
+}));
   
 // Configure Passport authenticated session persistence.
 //
