@@ -23,8 +23,8 @@ Once credentials have been obtained, create a `.env` file and add the following
 environment variables:
 
 ```
-GOOGLE_CLIENT_ID={{INSERT_CLIENT_ID_HERE}}
-GOOGLE_CLIENT_SECRET={{INSERT_CLIENT_SECRET_HERE}}
+GOOGLE_CLIENT_ID=__INSERT_CLIENT_ID_HERE__
+GOOGLE_CLIENT_SECRET=__INSERT_CLIENT_SECRET_HERE__
 ```
 
 Start the server.
