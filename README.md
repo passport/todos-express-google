@@ -39,7 +39,7 @@ Navigate to [`http://localhost:3000`](http://localhost:3000).
 
 This example illustrates how to use Passport and the [`passport-google-oidc`](https://www.passportjs.org/packages/passport-google-oidc/)
 strategy within an Express application to sign users in with [Google](https://www.google.com)
-via OAuth 2.0.
+via OpenID Connect.
 
 This app implements the features of a typical [TodoMVC](https://todomvc.com/)
 app, and adds sign in functionality.  This app is a traditional web application,
