@@ -30,12 +30,12 @@ passport.use(new GoogleStrategy({
       issuer,
       profile.id
     ], function(err, row) {
-      if (err) { return next(err); }
+      if (err) { return cb(err); }
       if (!row) {
         db.run('INSERT INTO users (name) VALUES (?)', [
           profile.displayName
         ], function(err) {
-          if (err) { return next(err); }
+          if (err) { return cb(err); }
           
           var id = this.lastID;
           db.run('INSERT INTO federated_credentials (user_id, provider, subject) VALUES (?, ?, ?)', [
@@ -43,7 +43,7 @@ passport.use(new GoogleStrategy({
             'https://accounts.google.com',
             profile.id
           ], function(err) {
-            if (err) { return next(err); }
+            if (err) { return cb(err); }
             var user = {
               id: id,
               name: profile.displayName
@@ -53,7 +53,7 @@ passport.use(new GoogleStrategy({
         });
       } else {
         db.get('SELECT rowid AS id, * FROM users WHERE rowid = ?', [ row.user_id ], function(err, row) {
-          if (err) { return next(err); }
+          if (err) { return cb(err); }
           if (!row) { return cb(null, false); }
           return cb(null, row);
         });
