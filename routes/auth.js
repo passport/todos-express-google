@@ -15,8 +15,7 @@ passport.use(new GoogleStrategy({
   clientID: process.env['GOOGLE_CLIENT_ID'],
   clientSecret: process.env['GOOGLE_CLIENT_SECRET'],
   callbackURL: '/oauth2/redirect/accounts.google.com',
-  scope: [ 'profile' ],
-  state: true
+  scope: [ 'profile' ]
 },
 function(issuer, profile, cb) {
   db.get('SELECT * FROM federated_credentials WHERE provider = ? AND subject = ?', [
