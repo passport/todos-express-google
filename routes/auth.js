@@ -14,7 +14,7 @@ var db = require('../db');
 passport.use(new GoogleStrategy({
   clientID: process.env['GOOGLE_CLIENT_ID'],
   clientSecret: process.env['GOOGLE_CLIENT_SECRET'],
-  callbackURL: '/oauth2/redirect/accounts.google.com',
+  callbackURL: '/oauth2/redirect/google',
   scope: [ 'profile' ]
 },
 function(issuer, profile, cb) {
@@ -100,7 +100,7 @@ router.get('/login', function(req, res, next) {
  * Once Google has completed their interaction with the user, the user will be
  * redirected back to the app at `GET /oauth2/redirect/accounts.google.com`.
  */
-router.get('/login/federated/accounts.google.com', passport.authenticate('google'));
+router.get('/login/federated/google', passport.authenticate('google'));
 
 /*
     This route completes the authentication sequence when Google redirects the
@@ -108,7 +108,7 @@ router.get('/login/federated/accounts.google.com', passport.authenticate('google
     automatically created and their Google account is linked.  When an existing
     user returns, they are signed in to their linked account.
 */
-router.get('/oauth2/redirect/accounts.google.com', passport.authenticate('google', {
+router.get('/oauth2/redirect/google', passport.authenticate('google', {
   successReturnToOrRedirect: '/',
   failureRedirect: '/login'
 }));
