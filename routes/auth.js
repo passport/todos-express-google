@@ -43,7 +43,7 @@ function(issuer, profile, cb) {
         });
       });
     } else {
-      db.get('SELECT rowid AS id, * FROM users WHERE rowid = ?', [ row.user_id ], function(err, row) {
+      db.get('SELECT * FROM users WHERE id = ?', [ row.user_id ], function(err, row) {
         if (err) { return cb(err); }
         if (!row) { return cb(null, false); }
         return cb(null, row);
