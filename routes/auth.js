@@ -4,7 +4,7 @@ var GoogleStrategy = require('passport-google-oidc');
 var db = require('../db');
 
 
-// Configure the Facebook strategy for use by Passport.
+// Configure the Google strategy for use by Passport.
 //
 // OAuth 2.0-based strategies require a `verify` function which receives the
 // credential (`accessToken`) for accessing the Facebook API on the user's
