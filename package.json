@@ -2,7 +2,7 @@
   "name": "todos-express-google",
   "version": "0.0.0",
   "private": true,
-  "description": "Todo app using Express, Passport, and SQLite for sign in with Google.",
+  "description": "Todo app using Express and Passport for sign in with Google.",
   "keywords": [
     "example",
     "express",
