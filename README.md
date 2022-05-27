@@ -68,6 +68,14 @@ When the server receives a request, it authenticates the cookie and restores the
 login session, thus authenticating the user.  It then accesses or stores records
 in the database associated with the authenticated user.
 
+## Next Steps
+
+* Add additional social login providers.
+
+  Study [todos-express-social](https://github.com/passport/todos-express-social)
+  to learn how to add multiple providers, giving users the choice of which
+  social network account to use when signing in.
+
 ## License
 
 [The Unlicense](https://opensource.org/licenses/unlicense)
