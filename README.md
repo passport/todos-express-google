@@ -76,6 +76,11 @@ in the database associated with the authenticated user.
   to learn how to add multiple providers, giving users the choice of which
   social network account to use when signing in.
 
+* Add passwordless.
+
+  Study [todos-express-webauthn](https://github.com/passport/todos-express-webauthn)
+  to learn how to let users sign in with biometrics or a security key.
+
 ## License
 
 [The Unlicense](https://opensource.org/licenses/unlicense)
